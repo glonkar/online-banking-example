@@ -31,4 +31,4 @@ spec:
   selector:
     app: gateway-service
     tier: backend
-
+  type: NodePort

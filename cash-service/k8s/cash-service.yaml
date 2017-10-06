@@ -1,0 +1,34 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: cash-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cash-service
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: cash-service
+          image: "achalise/cash-service:0.0.1"
+          ports:
+          - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: mongo-cash-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cash-service
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: cash-service
+    tier: backend
+
